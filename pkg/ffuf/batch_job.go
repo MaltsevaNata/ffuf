@@ -3,9 +3,9 @@ package ffuf
 import (
 	"fmt"
 
-	"github.com/ffuf/ffuf/v2/pkg/input"
-	"github.com/ffuf/ffuf/v2/pkg/output"
-	"github.com/ffuf/ffuf/v2/pkg/runner"
+	"github.com/MaltsevaNata/ffuf/v3/pkg/input"
+	"github.com/MaltsevaNata/ffuf/v3/pkg/output"
+	"github.com/MaltsevaNata/ffuf/v3/pkg/runner"
 )
 
 func WordlistInputFromConfig(conf *Config) (*input.WordlistInput, error) {
