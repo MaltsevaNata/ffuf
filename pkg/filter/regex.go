@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/ffuf/ffuf/v2/pkg/ffuf"
+	"github.com/MaltsevaNata/ffuf/v3/pkg/ffuf"
 )
 
 type RegexpFilter struct {
@@ -23,11 +23,13 @@ func NewRegexpFilter(value string) (ffuf.FilterProvider, error) {
 }
 
 func (f *RegexpFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(&struct {
-		Value string `json:"value"`
-	}{
-		Value: f.valueRaw,
-	})
+	return json.Marshal(
+		&struct {
+			Value string `json:"value"`
+		}{
+			Value: f.valueRaw,
+		},
+	)
 }
 
 func (f *RegexpFilter) Filter(response *ffuf.Response) (bool, error) {

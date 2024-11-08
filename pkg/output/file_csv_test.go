@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ffuf/ffuf/v2/pkg/ffuf"
+	"github.com/MaltsevaNata/ffuf/v3/pkg/ffuf"
 )
 
 func TestToCSV(t *testing.T) {
@@ -26,19 +26,21 @@ func TestToCSV(t *testing.T) {
 
 	csv := toCSV(result)
 
-	if !reflect.DeepEqual(csv, []string{
-		"B",
-		"http://as.df",
-		"http://no.pe",
-		"1",
-		"200",
-		"3",
-		"4",
-		"5",
-		"application/json",
-		"123ns",
-		"resultfile",
-		"A"}) {
+	if !reflect.DeepEqual(
+		csv, []string{
+			"B",
+			"http://as.df",
+			"http://no.pe",
+			"1",
+			"200",
+			"3",
+			"4",
+			"5",
+			"application/json",
+			"123ns",
+			"resultfile",
+			"A"},
+	) {
 		t.Errorf("CSV was not generated in expected format")
 	}
 }

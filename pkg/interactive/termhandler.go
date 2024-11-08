@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ffuf/ffuf/v2/pkg/ffuf"
+	"github.com/MaltsevaNata/ffuf/v3/pkg/ffuf"
 )
 
 type interactive struct {
@@ -193,7 +193,12 @@ func (i *interactive) handleInput(in []byte) {
 
 		default:
 			if i.paused {
-				i.Job.Output.Warning(fmt.Sprintf("Unknown command: \"%s\". Enter \"help\" for a list of available commands", args[0]))
+				i.Job.Output.Warning(
+					fmt.Sprintf(
+						"Unknown command: \"%s\". Enter \"help\" for a list of available commands",
+						args[0],
+					),
+				)
 			} else {
 				i.Job.Output.Error("NOPE")
 			}

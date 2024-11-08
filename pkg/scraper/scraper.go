@@ -8,7 +8,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/ffuf/ffuf/v2/pkg/ffuf"
+	"github.com/MaltsevaNata/ffuf/v3/pkg/ffuf"
 
 	"github.com/PuerkitoBio/goquery"
 )
@@ -111,12 +111,14 @@ func (s *Scraper) Execute(resp *ffuf.Response, matched bool) []ffuf.ScraperResul
 		}
 		val := rule.Check(sourceData)
 		if len(val) > 0 {
-			res = append(res, ffuf.ScraperResult{
-				Name:    rule.Name,
-				Type:    rule.Type,
-				Action:  rule.Action,
-				Results: val,
-			})
+			res = append(
+				res, ffuf.ScraperResult{
+					Name:    rule.Name,
+					Type:    rule.Type,
+					Action:  rule.Action,
+					Results: val,
+				},
+			)
 		}
 	}
 	return res
@@ -149,9 +151,11 @@ func (r *ScraperRule) checkQuery(data string) []string {
 	if err != nil {
 		return []string{}
 	}
-	doc.Find(r.Rule).Each(func(i int, sel *goquery.Selection) {
-		val = append(val, sel.Text())
-	})
+	doc.Find(r.Rule).Each(
+		func(i int, sel *goquery.Selection) {
+			val = append(val, sel.Text())
+		},
+	)
 	return val
 }
 

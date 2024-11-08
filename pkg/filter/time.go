@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ffuf/ffuf/v2/pkg/ffuf"
+	"github.com/MaltsevaNata/ffuf/v3/pkg/ffuf"
 )
 
 type TimeFilter struct {
@@ -35,11 +35,13 @@ func NewTimeFilter(value string) (ffuf.FilterProvider, error) {
 }
 
 func (f *TimeFilter) MarshalJSON() ([]byte, error) {
-	return json.Marshal(&struct {
-		Value string `json:"value"`
-	}{
-		Value: f.valueRaw,
-	})
+	return json.Marshal(
+		&struct {
+			Value string `json:"value"`
+		}{
+			Value: f.valueRaw,
+		},
+	)
 }
 
 func (f *TimeFilter) Filter(response *ffuf.Response) (bool, error) {

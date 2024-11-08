@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ffuf/ffuf/v2/pkg/ffuf"
+	"github.com/MaltsevaNata/ffuf/v3/pkg/ffuf"
 )
 
 type UsageSection struct {
@@ -102,26 +102,30 @@ func Usage() {
 
 	// Populate the flag sections
 	max_length := 0
-	flag.VisitAll(func(f *flag.Flag) {
-		found := false
-		for i, section := range sections {
-			if ffuf.StrInSlice(f.Name, section.ExpectedFlags) {
-				sections[i].Flags = append(sections[i].Flags, UsageFlag{
-					Name:        f.Name,
-					Description: f.Usage,
-					Default:     f.DefValue,
-				})
-				found = true
+	flag.VisitAll(
+		func(f *flag.Flag) {
+			found := false
+			for i, section := range sections {
+				if ffuf.StrInSlice(f.Name, section.ExpectedFlags) {
+					sections[i].Flags = append(
+						sections[i].Flags, UsageFlag{
+							Name:        f.Name,
+							Description: f.Usage,
+							Default:     f.DefValue,
+						},
+					)
+					found = true
+				}
 			}
-		}
-		if !found {
-			fmt.Printf("DEBUG: Flag %s was found but not defined in help.go.\n", f.Name)
-			os.Exit(1)
-		}
-		if len(f.Name) > max_length {
-			max_length = len(f.Name)
-		}
-	})
+			if !found {
+				fmt.Printf("DEBUG: Flag %s was found but not defined in help.go.\n", f.Name)
+				os.Exit(1)
+			}
+			if len(f.Name) > max_length {
+				max_length = len(f.Name)
+			}
+		},
+	)
 
 	fmt.Printf("Fuzz Faster U Fool - v%s\n\n", ffuf.Version())
 

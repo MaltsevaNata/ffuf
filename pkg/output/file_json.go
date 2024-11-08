@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/ffuf/ffuf/v2/pkg/ffuf"
+	"github.com/MaltsevaNata/ffuf/v3/pkg/ffuf"
 )
 
 type ejsonFileOutput struct {
@@ -65,21 +65,23 @@ func writeJSON(filename string, config *ffuf.Config, res []ffuf.Result) error {
 		for k, v := range r.Input {
 			strinput[k] = string(v)
 		}
-		jsonRes = append(jsonRes, JsonResult{
-			Input:            strinput,
-			Position:         r.Position,
-			StatusCode:       r.StatusCode,
-			ContentLength:    r.ContentLength,
-			ContentWords:     r.ContentWords,
-			ContentLines:     r.ContentLines,
-			ContentType:      r.ContentType,
-			RedirectLocation: r.RedirectLocation,
-			ScraperData:      r.ScraperData,
-			Duration:         r.Duration,
-			ResultFile:       r.ResultFile,
-			Url:              r.Url,
-			Host:             r.Host,
-		})
+		jsonRes = append(
+			jsonRes, JsonResult{
+				Input:            strinput,
+				Position:         r.Position,
+				StatusCode:       r.StatusCode,
+				ContentLength:    r.ContentLength,
+				ContentWords:     r.ContentWords,
+				ContentLines:     r.ContentLines,
+				ContentType:      r.ContentType,
+				RedirectLocation: r.RedirectLocation,
+				ScraperData:      r.ScraperData,
+				Duration:         r.Duration,
+				ResultFile:       r.ResultFile,
+				Url:              r.Url,
+				Host:             r.Host,
+			},
+		)
 	}
 	outJSON := jsonFileOutput{
 		CommandLine: config.CommandLine,

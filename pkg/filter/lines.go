@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ffuf/ffuf/v2/pkg/ffuf"
+	"github.com/MaltsevaNata/ffuf/v3/pkg/ffuf"
 )
 
 type LineFilter struct {
@@ -34,11 +34,13 @@ func (f *LineFilter) MarshalJSON() ([]byte, error) {
 			value = append(value, fmt.Sprintf("%d-%d", v.Min, v.Max))
 		}
 	}
-	return json.Marshal(&struct {
-		Value string `json:"value"`
-	}{
-		Value: strings.Join(value, ","),
-	})
+	return json.Marshal(
+		&struct {
+			Value string `json:"value"`
+		}{
+			Value: strings.Join(value, ","),
+		},
+	)
 }
 
 func (f *LineFilter) Filter(response *ffuf.Response) (bool, error) {

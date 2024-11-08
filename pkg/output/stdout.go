@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ffuf/ffuf/v2/pkg/ffuf"
+	"github.com/MaltsevaNata/ffuf/v3/pkg/ffuf"
 )
 
 const (
@@ -182,7 +182,20 @@ func (s *Stdoutput) Progress(status ffuf.Progress) {
 	dur -= mins * time.Minute
 	secs := dur / time.Second
 
-	fmt.Fprintf(os.Stderr, "%s:: Progress: [%d/%d] :: Job [%d/%d] :: %d req/sec :: Duration: [%d:%02d:%02d] :: Errors: %d ::", TERMINAL_CLEAR_LINE, status.ReqCount, status.ReqTotal, status.QueuePos, status.QueueTotal, reqRate, hours, mins, secs, status.ErrorCount)
+	fmt.Fprintf(
+		os.Stderr,
+		"%s:: Progress: [%d/%d] :: Job [%d/%d] :: %d req/sec :: Duration: [%d:%02d:%02d] :: Errors: %d ::",
+		TERMINAL_CLEAR_LINE,
+		status.ReqCount,
+		status.ReqTotal,
+		status.QueuePos,
+		status.QueueTotal,
+		reqRate,
+		hours,
+		mins,
+		secs,
+		status.ErrorCount,
+	)
 }
 
 func (s *Stdoutput) Info(infostring string) {
@@ -413,7 +426,17 @@ func (s *Stdoutput) resultQuiet(res ffuf.Result) {
 func (s *Stdoutput) resultMultiline(res ffuf.Result) {
 	var res_hdr, res_str string
 	res_str = "%s%s    * %s: %s\n"
-	res_hdr = fmt.Sprintf("%s%s[Status: %d, Size: %d, Words: %d, Lines: %d, Duration: %dms]%s", TERMINAL_CLEAR_LINE, s.colorize(res.StatusCode), res.StatusCode, res.ContentLength, res.ContentWords, res.ContentLines, res.Duration.Milliseconds(), ANSI_CLEAR)
+	res_hdr = fmt.Sprintf(
+		"%s%s[Status: %d, Size: %d, Words: %d, Lines: %d, Duration: %dms]%s",
+		TERMINAL_CLEAR_LINE,
+		s.colorize(res.StatusCode),
+		res.StatusCode,
+		res.ContentLength,
+		res.ContentWords,
+		res.ContentLines,
+		res.Duration.Milliseconds(),
+		ANSI_CLEAR,
+	)
 	reslines := ""
 	if s.config.Verbose {
 		reslines = fmt.Sprintf("%s%s| URL | %s\n", reslines, TERMINAL_CLEAR_LINE, res.Url)
@@ -446,7 +469,18 @@ func (s *Stdoutput) resultMultiline(res ffuf.Result) {
 }
 
 func (s *Stdoutput) resultNormal(res ffuf.Result) {
-	resnormal := fmt.Sprintf("%s%s%-23s [Status: %d, Size: %d, Words: %d, Lines: %d, Duration: %dms]%s", TERMINAL_CLEAR_LINE, s.colorize(res.StatusCode), s.prepareInputsOneLine(res), res.StatusCode, res.ContentLength, res.ContentWords, res.ContentLines, res.Duration.Milliseconds(), ANSI_CLEAR)
+	resnormal := fmt.Sprintf(
+		"%s%s%-23s [Status: %d, Size: %d, Words: %d, Lines: %d, Duration: %dms]%s",
+		TERMINAL_CLEAR_LINE,
+		s.colorize(res.StatusCode),
+		s.prepareInputsOneLine(res),
+		res.StatusCode,
+		res.ContentLength,
+		res.ContentWords,
+		res.ContentLines,
+		res.Duration.Milliseconds(),
+		ANSI_CLEAR,
+	)
 	fmt.Println(resnormal)
 }
 

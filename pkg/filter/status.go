@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ffuf/ffuf/v2/pkg/ffuf"
+	"github.com/MaltsevaNata/ffuf/v3/pkg/ffuf"
 )
 
 const AllStatuses = 0
@@ -44,11 +44,13 @@ func (f *StatusFilter) MarshalJSON() ([]byte, error) {
 			}
 		}
 	}
-	return json.Marshal(&struct {
-		Value string `json:"value"`
-	}{
-		Value: strings.Join(value, ","),
-	})
+	return json.Marshal(
+		&struct {
+			Value string `json:"value"`
+		}{
+			Value: strings.Join(value, ","),
+		},
+	)
 }
 
 func (f *StatusFilter) Filter(response *ffuf.Response) (bool, error) {
