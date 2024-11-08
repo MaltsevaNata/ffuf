@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/MaltsevaNata/ffuf/v3/pkg/ffuf"
+	"github.com/ffuf/ffuf/v2/pkg/ffuf"
 )
 
 func TestNewStatusFilter(t *testing.T) {
